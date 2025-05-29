@@ -1,7 +1,7 @@
 import streamlit as st
 import json
 import os
-from utils import authenticate_user, register_user, add_login_page_css, force_dark_mode
+from utils import authenticate_user, register_user, add_login_page_css
 
 def add_custom_css():
     """
