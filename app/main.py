@@ -8,7 +8,7 @@ import base64
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # Import utility functions
-from utils import add_custom_css, add_navbar, add_bg_from_file, create_enhanced_sidebar_navigation
+from utils import add_custom_css, add_navbar, add_bg_from_file, create_enhanced_sidebar_navigation, force_dark_mode
 
 # Import authentication functions
 from utils import authenticate_user, check_authentication
@@ -24,8 +24,12 @@ if "username" not in st.session_state:
 st.set_page_config(
     page_title="ESTK",
     page_icon="C:/Users/surface/Desktop/app/images/estk2.png",  # Add your icon path here
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
+
+# FORCE DARK MODE - This should be called first, before any other styling
+force_dark_mode()
 
 # Function to add animated particles background
 def add_animated_particles_background():
@@ -39,8 +43,9 @@ def add_animated_particles_background():
                 #1a1a3e 25%, 
                 #2d2d5f 50%, 
                 #1a1a3e 75%, 
-                #0f0f23 100%);
-            background-attachment: fixed;
+                #0f0f23 100%) !important;
+            background-attachment: fixed !important;
+            color: white !important;
         }
         
         /* Create animated particles */
@@ -63,6 +68,24 @@ def add_animated_particles_background():
             animation: floatParticles 20s ease-in-out infinite;
         }
         
+        @keyframes floatParticles {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 1;
+            }
+            25% {
+                transform: translateY(-20px) rotate(90deg);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-40px) rotate(180deg);
+                opacity: 0.6;
+            }
+            75% {
+                transform: translateY(-20px) rotate(270deg);
+                opacity: 0.8;
+            }
+        }
         </style>
         """,
         unsafe_allow_html=True,
