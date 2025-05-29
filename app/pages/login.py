@@ -1,34 +1,64 @@
 import streamlit as st
 import json
 import os
-from utils import authenticate_user, register_user, add_login_page_css
+from utils import authenticate_user, register_user, add_login_page_css, force_dark_mode
 
 def add_custom_css():
     """
-    Add custom CSS for the login page
+    Add custom CSS for the login page with animated particles background
     """
     st.markdown(
         """
         <style>
-        /* Main Background and Application Styling */
+        /* Main app background with animated particles - matching main.py */
         .stApp {
-            background-image: url("C:/Users/surface/Desktop/app/images/black_background.svg");
-            background-size: cover !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-            background-attachment: fixed !important;
+            background: linear-gradient(135deg, 
+                #0f0f23 0%, 
+                #1a1a3e 25%, 
+                #2d2d5f 50%, 
+                #1a1a3e 75%, 
+                #0f0f23 100%);
+            background-attachment: fixed;
         }
         
-        /* Add a subtle overlay to improve text readability over background */
+        /* Create animated particles - matching main.py */
         .stApp::before {
-            content: "";
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 100%);
+            pointer-events: none;
             z-index: -1;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255, 200, 87, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 30% 60%, rgba(134, 255, 119, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(188, 119, 255, 0.15) 0%, transparent 50%);
+            animation: floatParticles 20s ease-in-out infinite;
+        }
+        
+        /* Add floating animation keyframes */
+        @keyframes floatParticles {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 1;
+            }
+            25% {
+                transform: translateY(-20px) rotate(90deg);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-40px) rotate(180deg);
+                opacity: 0.6;
+            }
+            75% {
+                transform: translateY(-20px) rotate(270deg);
+                opacity: 0.8;
+            }
         }
         
         /* Login Card Styling with Glass Effect */
