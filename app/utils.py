@@ -87,6 +87,222 @@ def add_bg_from_file(image_file):
     )
 
 # Function to add custom CSS that hides the sidebar only for login page
+# Add this function to your utils.py file
+
+def force_dark_mode():
+    """
+    Force dark mode for all users regardless of their Streamlit theme settings
+    """
+    st.markdown("""
+    <style>
+    /* Force dark mode - Override all Streamlit theme settings */
+    .stApp {
+        background-color: #0f0f23 !important;
+        color: white !important;
+    }
+    
+    /* Force dark background for all containers */
+    .main .block-container,
+    .stApp > div,
+    [data-testid="stAppViewContainer"],
+    [data-testid="stHeader"],
+    [data-testid="stToolbar"],
+    [data-testid="stDecoration"],
+    [data-testid="stStatusWidget"],
+    section[data-testid="stSidebar"],
+    .css-1d391kg,
+    .css-1lcbmhc {
+        background-color: transparent !important;
+        color: white !important;
+    }
+    
+    /* Force all text elements to be white */
+    .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6,
+    .stApp p, .stApp div, .stApp span, .stApp label,
+    .stMarkdown, .stText, .stCaption {
+        color: white !important;
+    }
+    
+    /* Force input fields to have dark background and white text */
+    .stTextInput input,
+    .stNumberInput input,
+    .stTextArea textarea,
+    .stSelectbox select,
+    .stMultiSelect > div,
+    .stSlider > div,
+    .stDateInput input,
+    .stTimeInput input {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        color: white !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    }
+    
+    /* Force labels to be white */
+    .stTextInput label,
+    .stNumberInput label,
+    .stTextArea label,
+    .stSelectbox label,
+    .stMultiSelect label,
+    .stSlider label,
+    .stDateInput label,
+    .stTimeInput label,
+    .stCheckbox label,
+    .stRadio label {
+        color: white !important;
+    }
+    
+    /* Force selectbox and multiselect dropdown to be dark */
+    .stSelectbox > div > div,
+    .stMultiSelect > div > div,
+    .stSelectbox [data-baseweb="select"],
+    .stMultiSelect [data-baseweb="select"] {
+        background-color: rgba(0, 0, 0, 0.8) !important;
+        color: white !important;
+    }
+    
+    /* Force dropdown options to be dark */
+    [data-baseweb="menu"] {
+        background-color: rgba(0, 0, 0, 0.9) !important;
+    }
+    
+    [data-baseweb="menu"] li {
+        background-color: rgba(0, 0, 0, 0.9) !important;
+        color: white !important;
+    }
+    
+    [data-baseweb="menu"] li:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    /* Force dataframe/table styling to be dark */
+    .stDataFrame,
+    [data-testid="stDataFrame"],
+    .dataframe,
+    table {
+        background-color: rgba(0, 0, 0, 0.8) !important;
+        color: white !important;
+    }
+    
+    .stDataFrame th,
+    .stDataFrame td,
+    [data-testid="stDataFrame"] th,
+    [data-testid="stDataFrame"] td,
+    table th,
+    table td {
+        background-color: rgba(0, 0, 0, 0.6) !important;
+        color: white !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    }
+    
+    /* Force metrics to be dark */
+    [data-testid="metric-container"] {
+        background-color: rgba(0, 0, 0, 0.3) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        color: white !important;
+    }
+    
+    [data-testid="metric-container"] [data-testid="stMetricValue"] {
+        color: white !important;
+    }
+    
+    [data-testid="metric-container"] [data-testid="stMetricLabel"] {
+        color: rgba(255, 255, 255, 0.8) !important;
+    }
+    
+    /* Force alerts/notifications to have proper contrast */
+    .stAlert,
+    .stSuccess,
+    .stError,
+    .stWarning,
+    .stInfo {
+        color: white !important;
+    }
+    
+    .stAlert > div,
+    .stSuccess > div,
+    .stError > div,
+    .stWarning > div,
+    .stInfo > div {
+        color: white !important;
+    }
+    
+    /* Force chart backgrounds to be transparent or dark */
+    .stPlotlyChart,
+    .stAltairChart,
+    .stPydeckChart,
+    .stGraphvizChart {
+        background-color: transparent !important;
+    }
+    
+    /* Force progress bars to be visible */
+    .stProgress > div > div {
+        background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+    
+    /* Force tabs to be dark */
+    .stTabs [data-baseweb="tab-list"] {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        background-color: rgba(0, 0, 0, 0.3) !important;
+        color: white !important;
+    }
+    
+    .stTabs [data-baseweb="tab"][aria-selected="true"] {
+        background-color: rgba(0, 0, 0, 0.7) !important;
+        color: white !important;
+    }
+    
+    /* Force expander to be dark */
+    .streamlit-expanderHeader {
+        background-color: rgba(0, 0, 0, 0.3) !important;
+        color: white !important;
+    }
+    
+    .streamlit-expanderContent {
+        background-color: rgba(0, 0, 0, 0.1) !important;
+        color: white !important;
+    }
+    
+    /* Force columns background */
+    .element-container,
+    .stColumn > div {
+        background-color: transparent !important;
+        color: white !important;
+    }
+    
+    /* Override any remaining light mode artifacts */
+    * {
+        scrollbar-color: rgba(255, 255, 255, 0.3) transparent !important;
+    }
+    
+    ::-webkit-scrollbar {
+        background-color: transparent !important;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.3) !important;
+        border-radius: 4px !important;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background-color: transparent !important;
+    }
+    
+    /* Force any missed text elements */
+    [data-testid] {
+        color: white !important;
+    }
+    
+    /* Special override for stubborn elements */
+    .css-1629p8f, .css-6n58uw, .css-17eq0hr, .css-1d391kg,
+    .css-1lcbmhc, .css-12oz5g7, .css-1cpxqw2 {
+        background-color: transparent !important;
+        color: white !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 def add_login_page_css():
     st.markdown("""
     <style>
